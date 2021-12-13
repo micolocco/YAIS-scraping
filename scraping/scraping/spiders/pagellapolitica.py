@@ -1,7 +1,13 @@
 import scrapy
 
+from scraping import items
+
+from .. import items
+
 
 class PagellapoliticaSpider(scrapy.Spider):
+    # for a better implementation see https://docs.scrapy.org/en/latest/topics/spiders.html#scrapy.spiders.CrawlSpider
+    
     name = 'pagellapolitica'
     allowed_domains = ['pagellapolitica.it']
     start_urls = ['https://pagellapolitica.it/dichiarazioni/verificato/']
@@ -23,22 +29,25 @@ class PagellapoliticaSpider(scrapy.Spider):
 
 
     def parse_article(self, response):
+        review = items.ReviewItem()
+
+        review["politician"] = response.css("p a.u-link-muted::text").get().strip()
         
-        politician = response.css("p a.u-link-muted::text").get().strip()
-        title = response.css("span.h2::text").get().strip()
-        statement = response.css("p.lead::text").get().strip()
+        review["review_title"] = response.css("span.h2::text").get().strip()
+        review["statement"] = response.css("p.lead::text").get().strip()
         
         for css_class, truth_value in self.css_mapping.items():
             if response.css(f"span.h2.{css_class}"):
-                truthness = truth_value
+                review["review_truthness"] = truth_value
 
-        claim_source_url = (response.css("i.fa-external-link-alt") # icon
+        review["statement_source_url"] = (response.css("i.fa-external-link-alt") # icon
                                     .xpath("..") # get parent
                                     .attrib["href"]) # get parent href
 
         dates = response.css(".card-body .row span::text")[:2].getall()
         
-        article_date = dates[0]
-        claim_date = dates[1]
+        review["review_date"] = dates[0].strip()
+        review["statement_date"] = dates[1].strip()
 
-        self.logger.info(f"DATA: {politician} say  {statement} that is {truthness}")
+        #self.logger.info(f"DATA: {politician} say  {statement} that is {truthness}")
+        yield review
