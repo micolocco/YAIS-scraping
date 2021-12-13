@@ -6,4 +6,4 @@ jupyter-core==4.9.1
 requests==2.26.0
 ipykernel==6.5.1
 ipython==7.30.0
-scrapy=2.5.1
+scrapy==2.5.1
