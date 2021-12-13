@@ -1,4 +1,4 @@
-# YAIS: Yet Another Introduction to scraping
+# YAIS: Yet Another Introduction to Scraping
 
 This is the repo for the talk "YAIS: Yet Another Introduction to Scraping" to be held on 13/12/2021 @[Toolbox Coworking](https://toolboxcoworking.com/) (Torino) organized by [MLJC](https://www.mljc.it/)'s NLP group.
 
