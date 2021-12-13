@@ -16,6 +16,6 @@ This is the repo for the talk "YAIS: Yet Another Introduction to Scraping" to be
 * create a virtual environment: `conda create -n scraping` (or something else)
 * activate the virtual env: `conda activate scraping`
 * install the deps: `pip install -r requirements.txt`
-* run the notebook: `jupyter notebook scraping.ipynb` (or something else)
+* run the notebook: `jupyter notebook` (or something else)
 
 At this point everything should be up and running,you can choose to follow the notebook content or just take a look at the scrapy project.
